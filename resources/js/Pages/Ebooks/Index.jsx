@@ -12,7 +12,7 @@ import {Inertia} from "@inertiajs/inertia";
 import {format} from "date-fns";
 import Swal from "sweetalert2";
 
-export default function EbookIndex({ ebooks, session }) {
+export default function EbookIndex({ebooks, session}) {
     const handleDelete = async (id) => {
         const result = await Swal.fire({
             title: 'Apakah Anda yakin ingin menghapus pengguna ini?',
@@ -29,7 +29,7 @@ export default function EbookIndex({ ebooks, session }) {
 
     return (
         <Layout>
-            <div style={{ marginTop: '100px' }}>
+            <div style={{marginTop: '100px'}}>
                 <Link href="/ebooks/create" className="btn btn-success btn-md mb-3">TAMBAH EBOOK</Link>
 
                 {session.success && (
@@ -39,25 +39,26 @@ export default function EbookIndex({ ebooks, session }) {
                 )}
 
                 <Row>
-                    { ebooks.map((ebook, index) => (
-                        <Col key={ index } md={6} className="mb-4">
+                    {ebooks.map((ebook, index) => (
+                        <Col key={index} md={6} className="mb-4">
                             <Card>
                                 <Card.Body>
-                                    <Card.Title>{ ebook.title }</Card.Title>
+                                    <Card.Title>{ebook.title}</Card.Title>
                                     <Card.Text>
-                                        { ebook.publisher }
-                                        { ebook.year }
-                                        { ebook.isbn }
+                                        {ebook.publisher}
+                                        {ebook.year}
+                                        {ebook.isbn}
                                     </Card.Text>
                                     <Link href={`/ebooks/${ebook.id}/edit`} className="btn btn-primary me-2">Edit</Link>
-                                    <Button variant="danger" onClick={() => handleDelete(ebook.id)} className="m-2">Delete</Button>
+                                    <Button variant="danger" onClick={() => handleDelete(ebook.id)}
+                                            className="m-2">Delete</Button>
                                 </Card.Body>
                                 <Card.Footer>
                                     <p>Created at: {format(new Date(ebook.created_at), 'yyyy-MM-dd')}</p>
                                 </Card.Footer>
                             </Card>
                         </Col>
-                    )) }
+                    ))}
                 </Row>
             </div>
         </Layout>

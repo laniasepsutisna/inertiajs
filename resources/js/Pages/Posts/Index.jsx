@@ -5,12 +5,12 @@ import React from 'react';
 import Layout from '../../Layouts/Default.jsx';
 
 //import Link
-import { Link } from '@inertiajs/inertia-react';
+import {Link} from '@inertiajs/inertia-react';
 
 //import inertia adapter
-import { Inertia } from '@inertiajs/inertia';
+import {Inertia} from '@inertiajs/inertia';
 
-export default function PostIndex({ posts, session }) {
+export default function PostIndex({posts, session}) {
 
     const deletePost = async (id) => {
         Inertia.delete(`/posts/${id}`);
@@ -18,7 +18,7 @@ export default function PostIndex({ posts, session }) {
 
     return (
         <Layout>
-            <div style={{ marginTop: '100px' }}>
+            <div style={{marginTop: '100px'}}>
 
                 <Link href="/posts/create" className="btn btn-success btn-md mb-3">TAMBAH POST</Link>
 
@@ -39,16 +39,19 @@ export default function PostIndex({ posts, session }) {
                             </tr>
                             </thead>
                             <tbody>
-                            { posts.map((post, index) => (
-                                <tr key={ index }>
-                                    <td>{ post.title }</td>
-                                    <td>{ post.article }</td>
+                            {posts.map((post, index) => (
+                                <tr key={index}>
+                                    <td>{post.title}</td>
+                                    <td>{post.article}</td>
                                     <td className="text-center">
-                                        <Link href={`/posts/${post.id}/edit`} className="btn btn-sm btn-primary me-2">EDIT</Link>
-                                        <button onClick={() => deletePost(post.id)} className="btn btn-sm btn-danger">DELETE</button>
+                                        <Link href={`/posts/${post.id}/edit`}
+                                              className="btn btn-sm btn-primary me-2">EDIT</Link>
+                                        <button onClick={() => deletePost(post.id)}
+                                                className="btn btn-sm btn-danger">DELETE
+                                        </button>
                                     </td>
                                 </tr>
-                            )) }
+                            ))}
                             </tbody>
                         </table>
                     </div>
