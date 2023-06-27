@@ -30,7 +30,23 @@ class EbookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //set validation
+        $request->validate([
+            'title' => 'required',
+            'author' => 'required',
+            'publisher' => 'required',
+            'year' => 'required',
+            'isbn' => 'required',
+            'pages' => 'required',
+            'language' => 'required',
+            'size' => 'required',
+        ]);
+
+        //create post
+        Ebook::create($request->all());
+
+        //redirect
+        return redirect()->route('ebooks.index')->with('success', 'Data Berhasil Disimpan!');
     }
 
     /**
@@ -46,7 +62,9 @@ class EbookController extends Controller
      */
     public function edit(Ebook $ebook)
     {
-        //
+        return inertia('Ebooks/Edit', [
+            'ebook' => $ebook,
+        ]);
     }
 
     /**
@@ -54,7 +72,23 @@ class EbookController extends Controller
      */
     public function update(Request $request, Ebook $ebook)
     {
-        //
+        //set validation
+        $request->validate([
+            'title' => 'required',
+            'author' => 'required',
+            'publisher' => 'required',
+            'year' => 'required',
+            'isbn' => 'required',
+            'pages' => 'required',
+            'language' => 'required',
+            'size' => 'required',
+        ]);
+
+        //update post
+        $ebook->update($request->all());
+
+        //redirect
+        return redirect()->route('ebooks.index')->with('success', 'Data Berhasil Diupdate!');
     }
 
     /**
@@ -62,6 +96,10 @@ class EbookController extends Controller
      */
     public function destroy(Ebook $ebook)
     {
-        //
+        //delete post
+        $ebook->delete();
+
+        //redirect
+        return redirect()->route('ebooks.index')->with('success', 'Data Berhasil Dihapus!');
     }
 }

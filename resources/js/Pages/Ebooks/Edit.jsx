@@ -1,30 +1,32 @@
 //import React
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 //import layout
 import Layout from '../../Layouts/Default.jsx';
 import Card from "react-bootstrap/Card";
-import {Col, Container, Row} from "react-bootstrap";
-import {useForm} from "@inertiajs/inertia-react";
+import {Col, Row} from "react-bootstrap";
+import {Link, useForm, usePage} from "@inertiajs/inertia-react";
 
-export default function CreateEbook({ebooks, session}) {
+export default function EditEbook() {
 
-    const { data, setData, post, processing, errors } = useForm({
-        title: '',
-        author: '',
-        publisher: '',
-        year: '',
-        isbn: '',
-        pages: '',
-        language: '',
-        size: '',
+    const { ebook } = usePage().props;
+
+    const { data, setData, put, errors } = useForm({
+        title: ebook.title,
+        author: ebook.author,
+        publisher: ebook.publisher,
+        year: ebook.year,
+        isbn: ebook.isbn,
+        pages: ebook.pages,
+        language: ebook.language,
+        size: ebook.size,
     })
 
     function handleSubmit(e) {
         e.preventDefault()
-        post('/ebooks')
+        put(`/ebooks/${ebook.id}`);
     }
 
     return (
@@ -32,7 +34,7 @@ export default function CreateEbook({ebooks, session}) {
             <Row>
                 <Col md={12}>
                     <Card className="mt-5">
-                        <Card.Header>TAMBAH EBOOK</Card.Header>
+                        <Card.Header>EDIT EBOOK</Card.Header>
                         <Card.Body>
                             <Form onSubmit={handleSubmit}>
                                 <Row className="justify-content-md-first">
@@ -99,8 +101,9 @@ export default function CreateEbook({ebooks, session}) {
                                         </Form.Group>
                                     </Col>
                                     <Col xs lg="6">
+                                        <Link href="/ebooks" className="btn btn-danger me-2">Cancel</Link>
                                         <Button variant="primary" type="submit">
-                                            Create
+                                            Submit
                                         </Button>
                                     </Col>
                                 </Row>

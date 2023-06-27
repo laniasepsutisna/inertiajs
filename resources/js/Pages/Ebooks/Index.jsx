@@ -7,8 +7,17 @@ import {Link} from "@inertiajs/inertia-react";
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import {Col, Row} from "react-bootstrap";
+import {Inertia} from "@inertiajs/inertia";
+import {format} from "date-fns";
 
 export default function EbookIndex({ ebooks, session }) {
+    const handleDelete = async (id) => {
+        if (window.confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
+            // Mengirimkan permintaan delete ke server menggunakan Inertia.js
+            Inertia.delete(`/ebooks/${id}`);
+        }
+    };
 
     return (
         <Layout>
@@ -20,16 +29,28 @@ export default function EbookIndex({ ebooks, session }) {
                         {session.success}
                     </div>
                 )}
-                <Card style={{ width: '18rem' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                            Some quick example text to build on the card title and make up the
-                            bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
+
+                <Row>
+                    { ebooks.map((ebook, index) => (
+                        <Col key={ index } md={6} className="mb-4">
+                            <Card>
+                                <Card.Body>
+                                    <Card.Title>{ ebook.title }</Card.Title>
+                                    <Card.Text>
+                                        { ebook.publisher }
+                                        { ebook.year }
+                                        { ebook.isbn }
+                                    </Card.Text>
+                                    <Link href={`/ebooks/${ebook.id}/edit`} className="btn btn-primary me-2">Edit</Link>
+                                    <Button variant="danger" onClick={() => handleDelete(ebook.id)} className="m-2">Delete</Button>
+                                </Card.Body>
+                                <Card.Footer>
+                                    <p>Created at: {format(new Date(ebook.created_at), 'yyyy-MM-dd')}</p>
+                                </Card.Footer>
+                            </Card>
+                        </Col>
+                    )) }
+                </Row>
             </div>
         </Layout>
     )
