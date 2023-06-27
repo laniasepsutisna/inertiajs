@@ -45,12 +45,12 @@ export default function CreatePost({ errors }) {
                                 )}
 
                                 <div className="mb-3">
-                                    <label className="form-label fw-bold">Content</label>
+                                    <label className="form-label fw-bold">Article</label>
                                     <textarea className="form-control" value={article} onChange={(e) => setContent(e.target.value)} placeholder="Masukkan Judul Post" rows={4}></textarea>
                                 </div>
-                                {errors.content && (
+                                {errors.article && (
                                     <div className="alert alert-danger">
-                                        {errors.content}
+                                        {errors.article}
                                     </div>
                                 )}
 

@@ -19,7 +19,7 @@ class PostController extends Controller
 
         //return view
         return inertia('Posts/Index', [
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 
@@ -36,21 +36,21 @@ class PostController extends Controller
     /**
      * store
      *
-     * @param  mixed $request
+     * @param  mixed  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         //set validation
         $request->validate([
-            'title'   => 'required',
+            'title' => 'required',
             'article' => 'required',
         ]);
 
         //create post
         Post::create([
-            'title'     => $request->title,
-            'article'   => $request->article,
+            'title' => $request->title,
+            'article' => $request->article,
         ]);
 
         //redirect
@@ -60,7 +60,7 @@ class PostController extends Controller
     /**
      * edit
      *
-     * @param  mixed $post
+     * @param  mixed  $post
      * @return \Inertia\Response|\Inertia\ResponseFactory
      */
     public function edit(Post $post)
@@ -73,22 +73,22 @@ class PostController extends Controller
     /**
      * update
      *
-     * @param  mixed $request
-     * @param  mixed $post
+     * @param  mixed  $request
+     * @param  mixed  $post
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Post $post)
     {
         //set validation
         $request->validate([
-            'title'   => 'required',
+            'title' => 'required',
             'article' => 'required',
         ]);
 
         //update post
         $post->update([
-            'title'     => $request->title,
-            'article'   => $request->article
+            'title' => $request->title,
+            'article' => $request->article,
         ]);
 
         //redirect
@@ -98,7 +98,7 @@ class PostController extends Controller
     /**
      * destroy
      *
-     * @param  mixed $post
+     * @param  mixed  $post
      * @return void
      */
     public function destroy(Post $post)
