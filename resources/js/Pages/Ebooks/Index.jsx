@@ -10,11 +10,19 @@ import Card from 'react-bootstrap/Card';
 import {Col, Row} from "react-bootstrap";
 import {Inertia} from "@inertiajs/inertia";
 import {format} from "date-fns";
+import Swal from "sweetalert2";
 
 export default function EbookIndex({ ebooks, session }) {
     const handleDelete = async (id) => {
-        if (window.confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
-            // Mengirimkan permintaan delete ke server menggunakan Inertia.js
+        const result = await Swal.fire({
+            title: 'Apakah Anda yakin ingin menghapus pengguna ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal',
+        });
+
+        if (result.isConfirmed) {
             Inertia.delete(`/ebooks/${id}`);
         }
     };
