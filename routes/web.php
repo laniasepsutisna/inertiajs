@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\EbookController;
-use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\EbookController;
+use App\Http\Controllers\ComingSoonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PostController::class, 'index']);
 Route::resource('/posts', PostController::class);
 Route::resource('/ebooks', EbookController::class);
+Route::resource('/coming-soon', ComingSoonController::class);
